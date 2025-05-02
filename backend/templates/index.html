@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Alici IA</title></head>
+<body>
+<h1>Converse com a Alici</h1>
+<form id="chat-form">
+    <input type="text" id="mensagem" placeholder="Digite sua mensagem..." />
+    <button type="submit">Enviar</button>
+</form>
+<div id="resposta"></div>
+<script>
+document.getElementById("chat-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const mensagem = document.getElementById("mensagem").value;
+    const response = await fetch("/responder", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({mensagem})
+    });
+    const data = await response.json();
+    document.getElementById("resposta").innerText = data.resposta;
+});
+</script>
+</body>
+</html>
